@@ -19,8 +19,8 @@ class Vampire
 
   def self.sunset
     @@coven.each do |obj|
-      obj.in_coffin = false
-      obj.drank_blood_today = false
+      obj.in_coffin == false
+      obj.drank_blood_today == false
     end
   end
 
@@ -31,6 +31,9 @@ class Vampire
     @in_coffin = true
     @drank_blood_today = true
   end
+
+  attr_accessor :in_coffin, :drank_blood_today
+
 
   def drink_blood
     @drank_blood_today = true
