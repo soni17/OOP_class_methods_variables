@@ -4,8 +4,12 @@ class Vampire
   @@coven = []
 
   #---------------CLASS METHODS---------------
-  def self.create
+  def self.create(name,age)
     @@coven << Vampire.new(name,age)
+  end
+
+  def self.all
+    @@coven
   end
 
   def self.sunrise
