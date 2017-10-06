@@ -4,36 +4,38 @@ class Vampire
   @@coven = []
 
   #---------------CLASS METHODS---------------
-  def self.create(name,age)
-    @@coven << Vampire.new(name,age)
+  def self.create(name)
+    newVamp = Vampire.new(name)
+    @@coven << newVamp
+    return newVamp
   end
 
-  def self.all
-    @@coven
+  def self.all()
+    return @@coven
   end
 
-  def self.sunrise
-    newlist = @@coven.select{ |item| item.in_coffin == false || item.drank_blood_today == false }
-    @@coven = newlist
+  def self.sunrise()
+    @@coven.delete_if{ |vampire|
+        vampire.in_coffin == false || vampire.drank_blood_today == false
+      }
   end
 
   def self.sunset
-    @@coven.each do |obj|
-      obj.in_coffin == false
-      obj.drank_blood_today == false
-    end
+    @@coven.each { |vampire|
+      vampire.in_coffin = false
+      vampire.drank_blood_today = false
+    }
   end
 
   #-------------INSTANCE METHODS--------------
-  def initialize(name,age)
+  def initialize(name)
     @name = name
-    @age = age
-    @in_coffin = true
-    @drank_blood_today = true
+    @age = rand(50..300)
+    @in_coffin = false
+    @drank_blood_today = false
   end
 
-  attr_accessor :in_coffin, :drank_blood_today
-
+  attr_accessor :in_coffin , :drank_blood_today
 
   def drink_blood
     @drank_blood_today = true
@@ -44,3 +46,28 @@ class Vampire
   end
 
 end
+
+first = Vampire.create("first")
+second = Vampire.create("second")
+third = Vampire.create("third")
+fourth = Vampire.create("fourth")
+puts Vampire.all.inspect
+
+first.drink_blood
+first.go_home
+
+second.drink_blood
+second.go_home
+
+
+Vampire.sunrise
+puts ' '
+puts Vampire.all.inspect
+
+Vampire.sunset
+puts ' '
+puts Vampire.all.inspect
+
+Vampire.sunrise
+puts ' '
+puts Vampire.all.inspect
